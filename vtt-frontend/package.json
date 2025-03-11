@@ -9,8 +9,7 @@
     "lint": "biome check ./src",
     "preview": "vite preview",
     "start": "concurrently \"npm run dev\" \"python ../vtt-backend/manage.py runserver\"",
-    "test": "vitest",
-    "postinstall": "husky"
+    "test": "vitest"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -30,7 +29,6 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "concurrently": "^8.2.2",
-    "husky": "^9.1.7",
     "jsdom": "^24.0.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
