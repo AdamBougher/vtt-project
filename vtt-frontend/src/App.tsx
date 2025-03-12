@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <nav>
+      <nav className='absolute inset-x-0 top-25 h-16'>
         <ul className='flex space-x-4 justify-center'>
           <li>
             <Link to="/">Home</Link>
