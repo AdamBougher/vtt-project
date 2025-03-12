@@ -5,4 +5,6 @@ this is my attempt at a VTT, this project combines my old iniative track app mad
 SQLite  
 Django + Django REST framework  
 React (TS + SWC)  
-Vite  
+Vite
+
+Also using Tailwind CSS
