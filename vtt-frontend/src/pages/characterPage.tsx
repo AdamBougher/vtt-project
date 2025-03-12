@@ -9,7 +9,7 @@ interface CharacterStats {
 }
 
 interface Character {
-  id: number;
+  id: string; // Changed id to string
   name: string;
   race: string;
   class_type: string;
