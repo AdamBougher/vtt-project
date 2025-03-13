@@ -24,10 +24,10 @@ function App() {
       
       <div>
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Use the Home component for the root path */}
-          <Route path="/characters" element={<CharacterList />} /> {/* Changed path to /characters */}
+          <Route path="/" element={<Home />} /> 
+          <Route path="/characters" element={<CharacterList />} />
           <Route path="/create" element={<CreateCharacterForm />} />
-          <Route path="/characters/:id" element={<CharacterPage />} /> {/* Changed path to /characters/:id */}
+          <Route path="/characters/:id" element={<CharacterPage />} />
         </Routes>
       </div>
     </BrowserRouter>
