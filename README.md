@@ -7,4 +7,6 @@ Django + Django REST framework
 React (TS + SWC)  
 Vite
 
-Also using Tailwind CSS
+## Other Technoledgy used
+Tailwind CSS
+ky
