@@ -9,30 +9,35 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <nav className='absolute inset-x-0 top-25 h-16'>
-        <ul className='flex space-x-4 justify-center'>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/characters">Characters</Link>
-          </li>
-          <li>
-            <Link to="/create">Create Character</Link>
-          </li>
-          <li>
-            <Link to="/classes">Classes</Link>
-          </li>
-        </ul>
+      <nav className="absolute inset-x-0 top-0 flex items-center justify-between">
+        <div className="text-lg lg:flex-grow bg-gray-700">
+          <Link
+            to="/"
+            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-300 mr-4"
+          >
+            Home
+          </Link>
+          <Link
+            to="/characters"
+            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-300 mr-4"
+          >
+            Characters
+          </Link>
+          <Link
+            to="/create"
+            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-300 mr-4"
+          >
+            Create Character
+          </Link>
+        </div>
       </nav>
-      
-      <div>
+
+      <div className="p-6">
         <Routes>
-          <Route path="/" element={<Home />} /> 
+          <Route path="/" element={<Home />} />
           <Route path="/characters" element={<CharacterList />} />
           <Route path="/create" element={<CreateCharacterForm />} />
           <Route path="/characters/:id" element={<CharacterPage />} />
-          <Route path="/classes" element={<Open5eClassesPage />} />
         </Routes>
       </div>
     </BrowserRouter>
