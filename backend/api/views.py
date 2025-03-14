@@ -9,14 +9,24 @@ logger = logging.getLogger(__name__)
 
 ### GET and POST Character ###
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def get_characters(request):
-    logger.info("get_characters view called")
-    characters = CharacterSheet.objects.all()
-    serializer = CharacterSheetSerializer(characters, many=True)
-    logger.info(f"Serialized data: {serializer.data}")
-    return Response(serializer.data)
+    if request.method == 'GET':
+        logger.info("get_characters view called")
+        characters = CharacterSheet.objects.all()
+        serializer = CharacterSheetSerializer(characters, many=True)
+        logger.info(f"Serialized data: {serializer.data}")
+        return Response(serializer.data)
     
+    elif request.method == 'POST':
+        serializer = CharacterSheetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            logger.info(f"Character saved: {serializer.data}")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        logger.error(f"Error saving character: {serializer.errors}")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(["GET", "PUT", "DELETE"])
 def character_detail(request, character_id):
     try:
