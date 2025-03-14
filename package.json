@@ -1,0 +1,14 @@
+{
+  "name": "vtt-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd .\\backend && .\\.venv\\Scripts\\activate && python manage.py runserver\" \"cd frontend && yarn dev\""
+  },
+  "repository": "https://github.com/AdamBougher/vtt-project.git",
+  "author": "AdamBougher <a.bougher1999@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
