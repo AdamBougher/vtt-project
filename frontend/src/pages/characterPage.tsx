@@ -40,15 +40,18 @@ function CharacterPage() {
 
   return (
     <div className="character-page">
-      <h2>{character.name}</h2>
-      <p>Race: {character.race}</p>
-      <p>Class: {character.class_type}</p>
-      <p>Level: {character.level}</p>
-      <p>Stats:
+      <h1>{character.name}</h1>
+      <p>
+        Level: {character.level} : {character.race} {character.class_type}
+      </p>
+      <p>
         <ul>
-          {character.stats && Object.entries(character.stats).map(([key, value]) => (
-            <li key={key}>{key}: {value}</li>
-          ))}
+          {character.stats &&
+            Object.entries(character.stats).map(([key, value]) => (
+              <li key={key}>
+                {key}: {value}
+              </li>
+            ))}
         </ul>
       </p>
     </div>
