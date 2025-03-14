@@ -8,6 +8,5 @@ React (TS + SWC)
 Vite
 
 ## Other Technoledgy used
-vite
-Tailwind CSS
-ky
+Tailwind CSS  
+ky  
