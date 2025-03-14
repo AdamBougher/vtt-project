@@ -1,21 +1,7 @@
 import { useEffect, useState } from 'react';
 import ky from 'ky';
 import { Link } from 'react-router-dom';
-
-interface CharacterStats {
-  strength: number;
-  dexterity: number;
-  constitution: number;
-}
-
-interface Character {
-  id: number;
-  name: string;
-  race: string;
-  class_type: string;
-  level: number;
-  stats: CharacterStats;
-}
+import { CharacterInfo as Character } from "../Components/character";
 
 function CharacterCard({ character }: { character: Character }) {
   return (
