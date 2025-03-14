@@ -3,13 +3,19 @@ import ky from "ky";
 import { CharacterInfo as Character } from "../Components/character";
 
 function CreateCharacterForm() {
-  const [newCharacterName, setNewCharacterName] = useState("");
-  const [newCharacterRace, setNewCharacterRace] = useState("");
-  const [newCharacterClass, setNewCharacterClass] = useState("");
-  const [newCharacterLevel, setNewCharacterLevel] = useState(1);
-  const [newCharacterStrength, setNewCharacterStrength] = useState(10);
-  const [newCharacterDexterity, setNewCharacterDexterity] = useState(10);
-  const [newCharacterConstitution, setNewCharacterConstitution] = useState(10);
+  const [system, setSystem] = useState("");
+  const [name, setName] = useState("");
+  const [race, setRace] = useState("");
+  const [classType, setClassType] = useState("");
+  const [level, setLevel] = useState(1);
+  const [characterStats, setCharacterStats] = useState({
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    wisdom: 10,
+    intelligence: 10,
+    charisma: 10,
+  });
   const [characters, setCharacters] = useState<Character[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,100 +23,105 @@ function CreateCharacterForm() {
     e.preventDefault();
 
     const newCharacter = {
-      name: newCharacterName,
-      race: newCharacterRace,
-      class_type: newCharacterClass,
-      level: newCharacterLevel,
-      stats: {
-        strength: newCharacterStrength,
-        dexterity: newCharacterDexterity,
-        constitution: newCharacterConstitution,
-        wisdom: 10,
-        intelligence: 10,
-        charisma: 10,
-      },
+      name,
+      race,
+      class_type: classType,
+      level,
+      stats: characterStats,
     };
 
     try {
-      const response = await ky.post<Character>("http://127.0.0.1:8000/api/characters/", {json: newCharacter}).json();
+      const response = await ky
+        .post<Character>("http://127.0.0.1:8000/api/characters/", {
+          json: newCharacter,
+        })
+        .json();
       // Update the character list with the new character
       setCharacters([...characters, response]);
 
       // Clear the form
-      setNewCharacterName("");
-      setNewCharacterRace("");
-      setNewCharacterClass("");
-      setNewCharacterLevel(1);
-      setNewCharacterStrength(10);
-      setNewCharacterDexterity(10);
-      setNewCharacterConstitution(10);
+      setName("");
+      setRace("");
+      setClassType("");
+      setLevel(1);
+      setCharacterStats({
+        strength: 10,
+        dexterity: 10,
+        constitution: 10,
+        wisdom: 10,
+        intelligence: 10,
+        charisma: 10,
+      });
     } catch (e: any) {
       setError(e.message);
     }
   };
 
+  const handleStatChange = (stat: string, value: number) => {
+    setCharacterStats((prevStats) => ({
+      ...prevStats,
+      [stat]: value,
+    }));
+  };
+
   return (
-    <form onSubmit={handleCreateCharacter}>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={newCharacterName}
-          onChange={(e) => setNewCharacterName(e.target.value)}
-        />
-      </label>
-      <label>
-        Race:
-        <input
-          type="text"
-          value={newCharacterRace}
-          onChange={(e) => setNewCharacterRace(e.target.value)}
-        />
-      </label>
-      <label>
-        Class:
-        <input
-          type="text"
-          value={newCharacterClass}
-          onChange={(e) => setNewCharacterClass(e.target.value)}
-        />
-      </label>
-      <label>
-        Level:
-        <input
-          type="number"
-          value={newCharacterLevel}
-          onChange={(e) => setNewCharacterLevel(parseInt(e.target.value))}
-        />
-      </label>
-      <label>
-        Strength:
-        <input
-          type="number"
-          value={newCharacterStrength}
-          onChange={(e) => setNewCharacterStrength(parseInt(e.target.value))}
-        />
-      </label>
-      <label>
-        Dexterity:
-        <input
-          type="number"
-          value={newCharacterDexterity}
-          onChange={(e) => setNewCharacterDexterity(parseInt(e.target.value))}
-        />
-      </label>
-      <label>
-        Constitution:
-        <input
-          type="number"
-          value={newCharacterConstitution}
-          onChange={(e) =>
-            setNewCharacterConstitution(parseInt(e.target.value))
-          }
-        />
-      </label>
-      <button type="submit">Create Character</button>
-    </form>
+    <div>
+      <h2>Create a new character</h2>
+      {error && <div>Error: {error}</div>}
+      <form onSubmit={handleCreateCharacter}>
+        <label>
+          System:
+          <input
+            type="text"
+            value={system}
+            onChange={(e) => setSystem(e.target.value)}
+          />
+        </label>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label>
+          Race:
+          <input
+            type="text"
+            value={race}
+            onChange={(e) => setRace(e.target.value)}
+          />
+        </label>
+        <label>
+          Class:
+          <input
+            type="text"
+            value={classType}
+            onChange={(e) => setClassType(e.target.value)}
+          />
+        </label>
+        <label>
+          Level:
+          <input
+            type="number"
+            value={level}
+            onChange={(e) => setLevel(parseInt(e.target.value))}
+          />
+        </label>
+        {Object.entries(characterStats).map(([stat, value]) => (
+          <label key={stat}>
+            {stat.charAt(0).toUpperCase() + stat.slice(1)}:<br/>
+            <input
+              type="number"
+              value={value}
+              onChange={(e) => handleStatChange(stat, parseInt(e.target.value))}
+            />
+          </label>
+        ))}
+        <button type="submit">Create Character</button>
+      </form>
+    </div>
   );
 }
 
