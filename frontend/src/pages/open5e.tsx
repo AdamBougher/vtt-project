@@ -1,6 +1,6 @@
 // filepath: c:\Users\adams\vtt-project\vtt-frontend\src\pages\Open5eClassesPage.tsx
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import ky from 'ky';
 import { Open5eAPIResponse, ClassData } from '../Components/open5e';
 
 function Open5eClassesPage() {
@@ -11,8 +11,8 @@ function Open5eClassesPage() {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await axios.get<Open5eAPIResponse<ClassData>>('https://api.open5e.com/v1/classes/');
-        setClasses(response.data.results);
+        const response = await ky<ClassData[]>('https://api.open5e.com/v1/classes/').json();
+        setClasses(response);
         setLoading(false);
       } catch (e: any) {
         setError(e.message);

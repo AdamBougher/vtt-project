@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import ky from "ky";
 import { CharacterInfo as Character } from "../Components/character";
 
 function CreateCharacterForm() {
@@ -32,12 +32,9 @@ function CreateCharacterForm() {
     };
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/characters/",
-        newCharacter
-      );
+      const response = await ky.post<Character>("http://127.0.0.1:8000/api/characters/", {json: newCharacter}).json();
       // Update the character list with the new character
-      setCharacters([...characters, response.data]);
+      setCharacters([...characters, response]);
 
       // Clear the form
       setNewCharacterName("");

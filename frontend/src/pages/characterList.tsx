@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import ky from 'ky';
 import { Link } from 'react-router-dom';
 
 interface CharacterStats {
@@ -34,8 +34,8 @@ function CharacterList() {
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
-        const response = await axios.get<Character[]>("http://127.0.0.1:8000/api/characters/");
-        setCharacters(response.data);
+        const response = await ky<Character[]>("http://127.0.0.1:8000/api/characters/").json();
+        setCharacters(response);
         setLoading(false);
       } catch (e: any) {
         setError(e.message);

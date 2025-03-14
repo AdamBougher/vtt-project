@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import ky from 'ky';
 import { CharacterInfo as Character} from "../Components/character";
 
 
@@ -14,8 +14,8 @@ function CharacterPage() {
   useEffect(() => {
     const fetchCharacter = async () => {
       try {
-        const response = await axios.get<Character>(`http://127.0.0.1:8000/api/characters/${id}/`);
-        setCharacter(response.data);
+        const response = await ky<Character>(`http://127.0.0.1:8000/api/characters/${id}/`).json();
+        setCharacter(response);
         setLoading(false);
       } catch (e: any) {
         setError(e.message);
