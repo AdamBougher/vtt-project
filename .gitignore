@@ -37,3 +37,4 @@ stats.html
 # others
 
 **/__pycache__/
+**/.venv/
