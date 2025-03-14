@@ -1,25 +1,11 @@
-import { useState } from 'react';
-import axios from 'axios';
-
-interface CharacterStats {
-  strength: number;
-  dexterity: number;
-  constitution: number;
-}
-
-interface Character {
-  id: number;
-  name: string;
-  race: string;
-  class_type: string;
-  level: number;
-  stats: CharacterStats;
-}
+import { useState } from "react";
+import axios from "axios";
+import { CharacterInfo as Character } from "../Components/character";
 
 function CreateCharacterForm() {
-  const [newCharacterName, setNewCharacterName] = useState('');
-  const [newCharacterRace, setNewCharacterRace] = useState('');
-  const [newCharacterClass, setNewCharacterClass] = useState('');
+  const [newCharacterName, setNewCharacterName] = useState("");
+  const [newCharacterRace, setNewCharacterRace] = useState("");
+  const [newCharacterClass, setNewCharacterClass] = useState("");
   const [newCharacterLevel, setNewCharacterLevel] = useState(1);
   const [newCharacterStrength, setNewCharacterStrength] = useState(10);
   const [newCharacterDexterity, setNewCharacterDexterity] = useState(10);
@@ -39,23 +25,28 @@ function CreateCharacterForm() {
         strength: newCharacterStrength,
         dexterity: newCharacterDexterity,
         constitution: newCharacterConstitution,
+        wisdom: 10,
+        intelligence: 10,
+        charisma: 10,
       },
     };
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/characters/", newCharacter);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/characters/",
+        newCharacter
+      );
       // Update the character list with the new character
       setCharacters([...characters, response.data]);
 
       // Clear the form
-      setNewCharacterName('');
-      setNewCharacterRace('');
-      setNewCharacterClass('');
+      setNewCharacterName("");
+      setNewCharacterRace("");
+      setNewCharacterClass("");
       setNewCharacterLevel(1);
       setNewCharacterStrength(10);
       setNewCharacterDexterity(10);
       setNewCharacterConstitution(10);
-
     } catch (e: any) {
       setError(e.message);
     }
@@ -95,7 +86,7 @@ function CreateCharacterForm() {
           onChange={(e) => setNewCharacterLevel(parseInt(e.target.value))}
         />
       </label>
-        <label>
+      <label>
         Strength:
         <input
           type="number"
@@ -103,7 +94,7 @@ function CreateCharacterForm() {
           onChange={(e) => setNewCharacterStrength(parseInt(e.target.value))}
         />
       </label>
-        <label>
+      <label>
         Dexterity:
         <input
           type="number"
@@ -111,12 +102,14 @@ function CreateCharacterForm() {
           onChange={(e) => setNewCharacterDexterity(parseInt(e.target.value))}
         />
       </label>
-        <label>
+      <label>
         Constitution:
         <input
           type="number"
           value={newCharacterConstitution}
-          onChange={(e) => setNewCharacterConstitution(parseInt(e.target.value))}
+          onChange={(e) =>
+            setNewCharacterConstitution(parseInt(e.target.value))
+          }
         />
       </label>
       <button type="submit">Create Character</button>

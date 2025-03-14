@@ -1,21 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { CharacterInfo as Character} from "../Components/character";
 
-interface CharacterStats {
-  strength: number;
-  dexterity: number;
-  constitution: number;
-}
 
-interface Character {
-  id: string; // Changed id to string
-  name: string;
-  race: string;
-  class_type: string;
-  level: number;
-  stats: CharacterStats;
-}
 
 function CharacterPage() {
   const { id } = useParams<{ id: string }>(); // Get the character ID from the URL
@@ -58,9 +46,9 @@ function CharacterPage() {
       <p>Level: {character.level}</p>
       <p>Stats:
         <ul>
-          <li>Strength: {character.stats.strength}</li>
-          <li>Dexterity: {character.stats.dexterity}</li>
-          <li>Constitution: {character.stats.constitution}</li>
+          {character.stats && Object.entries(character.stats).map(([key, value]) => (
+            <li key={key}>{key}: {value}</li>
+          ))}
         </ul>
       </p>
     </div>

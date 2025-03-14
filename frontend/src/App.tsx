@@ -3,6 +3,7 @@ import CharacterList from './pages/characterList';
 import CreateCharacterForm from './pages/createCharacter';
 import CharacterPage from './pages/characterPage';
 import Home from './pages/home'; // Import the Home component
+import Open5eClassesPage from './pages/open5e'; // Import the Open5eClassesPage component
 import './App.css';
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
           <li>
             <Link to="/create">Create Character</Link>
           </li>
+          <li>
+            <Link to="/classes">Classes</Link>
+          </li>
         </ul>
       </nav>
       
@@ -28,6 +32,7 @@ function App() {
           <Route path="/characters" element={<CharacterList />} />
           <Route path="/create" element={<CreateCharacterForm />} />
           <Route path="/characters/:id" element={<CharacterPage />} />
+          <Route path="/classes" element={<Open5eClassesPage />} />
         </Routes>
       </div>
     </BrowserRouter>
