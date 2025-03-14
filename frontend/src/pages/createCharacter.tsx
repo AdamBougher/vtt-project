@@ -1,9 +1,9 @@
 import { useState } from "react";
 import ky from "ky";
-import { CharacterInfo as Character } from "../Components/character";
+import { CharacterInfo as Character, Systems } from "../Components/character";
 
 function CreateCharacterForm() {
-  const [system, setSystem] = useState("");
+  const [system, setSystem] = useState<Systems>(Systems.DND5E);
   const [name, setName] = useState("");
   const [race, setRace] = useState("");
   const [classType, setClassType] = useState("");
@@ -23,6 +23,7 @@ function CreateCharacterForm() {
     e.preventDefault();
 
     const newCharacter = {
+      system,
       name,
       race,
       class_type: classType,
@@ -40,6 +41,7 @@ function CreateCharacterForm() {
       setCharacters([...characters, response]);
 
       // Clear the form
+      setSystem(Systems.DND5E);
       setName("");
       setRace("");
       setClassType("");
@@ -70,12 +72,18 @@ function CreateCharacterForm() {
       {error && <div>Error: {error}</div>}
       <form onSubmit={handleCreateCharacter}>
         <label>
-          System:
-          <input
-            type="text"
+          System: {' '}
+          <select
             value={system}
-            onChange={(e) => setSystem(e.target.value)}
-          />
+            onChange={(e) => setSystem(e.target.value as Systems)}
+            className="bg-gray-500"
+          >
+            {Object.values(Systems).map((sys) => (
+              <option key={sys} value={sys}>
+                {sys}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           Name:
@@ -111,7 +119,7 @@ function CreateCharacterForm() {
         </label>
         {Object.entries(characterStats).map(([stat, value]) => (
           <label key={stat}>
-            {stat.charAt(0).toUpperCase() + stat.slice(1)}:<br/>
+            {stat.charAt(0).toUpperCase() + stat.slice(1)}:<br />
             <input
               type="number"
               value={value}
