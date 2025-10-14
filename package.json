@@ -1,14 +1,9 @@
 {
-  "name": "vtt-project",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "Character Engeine",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "start": "concurrently  --names \"BE,FE\" -c \"red,blue\" \"cd .\\backend && .\\.venv\\Scripts\\activate && python manage.py runserver\" \"cd frontend && yarn dev\""
-  },
-  "repository": "https://github.com/AdamBougher/vtt-project.git",
-  "author": "AdamBougher <a.bougher1999@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^9.1.2"
+    "dev": "echo run apps/web for dev",
+    "build": "echo build all packages"
   }
 }
