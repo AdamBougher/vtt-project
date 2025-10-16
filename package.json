@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm --filter ./apps/web dev",
+    "dev": "pnpm --filter web dev",
     "build": "echo build all packages",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
