@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "tailwind:build": "tailwindcss -i ./src/index.css -o ./dist/tailwind.css",
+    "tailwind:watch": "tailwindcss -i ./src/index.css -o ./dist/tailwind.css --watch"
   },
   "dependencies": {
     "next": "15.5.5",
@@ -16,6 +18,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@next/eslint-plugin-next": "^15.5.5",
+    "@tailwindcss/cli": "^4.1.14",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
